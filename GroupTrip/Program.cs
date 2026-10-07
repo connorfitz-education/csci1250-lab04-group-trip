@@ -7,10 +7,9 @@
 * reports on a whole group instead of one person.
 */
 
-System.Console.WriteLine("Welcome to the Trip Calculator!"); //Title of Program
+System.Console.WriteLine("Welcome to the Trip Calculator!\n\n"); //Title of Program
 
 // Miles, MPG, Gas Cost, Total Gallons
-System.Console.WriteLine(""); //Each of these is just for visual organization - separates sections
 
 System.Console.Write("How many miles will the round trip be? ");
 double totalMiles = Convert.ToDouble(Console.ReadLine()); //Double because the value may contain a decimal but idk what convert to use for float + Double is more precise than float (32vs64bit)
@@ -23,37 +22,36 @@ double gasCost = Convert.ToDouble(Console.ReadLine()); //Decimal because involve
 
 double fuelCost = FuelCost(totalMiles, milesPerGallon, gasCost);
 
+//People
+string[] names = { "Ada", "Grace", "Alan", "Katherine" };
+double[] hoursWorked = { 22, 15, 30, 18 };
+double[] hourlyRates = { 13.50, 16.00, 11.20, 14.80 };
+const float TAX_RATE = .18f;
+
 // Food Factors
 System.Console.WriteLine("");
 const int PIZZA_SLICES = 8; //const is required because this value is constant
-
-System.Console.Write("How many people are going on this trip? ");
-int totalPeople = Convert.ToInt32(Console.ReadLine()); //Int because value should never include a decimal
-
+int totalPeople = names.Length; //Int because value should never include a decimal
 System.Console.Write("How many pizzas will you purchase? ");
 int totalPizzas = Convert.ToInt32(Console.ReadLine());
-
 System.Console.Write("How much does each pizza cost? $");
 double pizzaCost = Convert.ToDouble(Console.ReadLine());
 
-//Paycheck
-System.Console.WriteLine("");
-const float TAX_RATE = .18f;
-
-System.Console.Write("How many hours did you work this week? ");
-double hoursWorked = Convert.ToDouble(Console.ReadLine());
-
-System.Console.Write("How much money do you make an hour? $");
-double wageHourly = Convert.ToDouble(Console.ReadLine());
-System.Console.WriteLine("");
-
-TakeHomePay(hoursWorked, wageHourly, TAX_RATE);
-
+//New numbers
+double tripTotal = fuelCost+pizzaCost*totalPizzas;
+double slicesEach = totalPizzas*PIZZA_SLICES/names.Length;
+double costPerPerson = tripTotal/names.Length;
+//double perHourTakeHome = TakeHomePay(1,2,3)/hoursWorked;
 //Final Section
 System.Console.WriteLine("=== Part 1: The Trip ===");
 System.Console.WriteLine($"Fuel cost: {fuelCost:C}");
 System.Console.WriteLine($"Pizza cost: {pizzaCost:C}");
-System.Console.WriteLine($"Trip total: {fuelCost+pizzaCost:C}");
+System.Console.WriteLine($"Trip total: {tripTotal:C}");
+
+System.Console.WriteLine("\n=== Part 2: The Group ===");
+System.Console.WriteLine($"People going: {totalPeople}");
+System.Console.WriteLine($"Slices each: {slicesEach}");
+System.Console.WriteLine($"Cost per person: {costPerPerson:C}");
 
 // LAB 4
 
@@ -68,4 +66,8 @@ static double TakeHomePay(double hours, double hourlyRate, double taxRate)
     double takeHomePay = grossPay-(grossPay*taxRate);
     return takeHomePay;
 
+}
+static double HoursToCover(double amountOwed, double takeHomePerHour)
+{
+    return amountOwed/takeHomePerHour;
 }
