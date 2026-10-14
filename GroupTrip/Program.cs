@@ -23,15 +23,14 @@ double[] hoursWorked = { 22, 15, 30, 18 };
 double[] hourlyRates = { 13.50, 16.00, 11.20, 14.80 };
 
 // Food Factors
-System.Console.Write("\nHow many pizzas will you purchase? ");
+System.Console.Write("How many pizzas will you purchase? ");
 int totalPizzas = Convert.ToInt32(Console.ReadLine());
 System.Console.Write("How much does each pizza cost? $");
 double pizzaCost = Convert.ToDouble(Console.ReadLine());
 
-//Numbers
+// Variables
 const float TAX_RATE = .18f;
 const int PIZZA_SLICES = 8;
-int totalPeople = names.Length;
 double fuelCost = FuelCost(totalMiles, milesPerGallon, gasCost);
 double tripTotal = fuelCost+pizzaCost*totalPizzas;
 double slicesEach = totalPizzas*PIZZA_SLICES/names.Length;
@@ -40,14 +39,15 @@ double totalHours = 0;
 double totalTakeHomePay = 0;
 double longest = 0;
 
-//Final Section
+//OUTPUT
+
 System.Console.WriteLine("\n=== Part 1: The Trip ===");
 System.Console.WriteLine($"Fuel cost: {fuelCost:C}");
 System.Console.WriteLine($"Pizza cost: {pizzaCost:C}");
 System.Console.WriteLine($"Trip total: {tripTotal:C}");
 
 System.Console.WriteLine("\n=== Part 2: The Group ===");
-System.Console.WriteLine($"People going: {totalPeople}");
+System.Console.WriteLine($"People going: {names.Length}");
 System.Console.WriteLine($"Slices each: {slicesEach}");
 System.Console.WriteLine($"Cost per person: {costPerPerson:C}");
 
@@ -68,11 +68,13 @@ System.Console.WriteLine($"Longest anyone must work {longest:F2}");
 
 // LAB 4 methods
 
+// Returns the TOTAL cost of gas for the trip as a double
 static double FuelCost(double miles, double milesPerGallon, double pricePerGallon)
 {
     double totalGallons = miles/milesPerGallon;  
     return totalGallons * pricePerGallon;
 }
+// Returns the take-home pay for a person as a double
 static double TakeHomePay(double hours, double hourlyRate, double taxRate)
 {
     double grossPay = hours*hourlyRate;
@@ -80,6 +82,7 @@ static double TakeHomePay(double hours, double hourlyRate, double taxRate)
     return takeHomePay;
 
 }
+// Returns the amount of hours a person would need to work to cover their individual cost for the trip as a double
 static double HoursToCover(double amountOwed, double takeHomePerHour)
 {
     return amountOwed/takeHomePerHour;
